@@ -33,7 +33,7 @@ defer(function () {
             },
             computed:{
                 sum: function(){
-                    return this.num1 + this.num2
+                    return parseInt(this.num1) + parseInt(this.num2)
                 }
             }
         })
