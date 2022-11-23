@@ -13,7 +13,7 @@ style.setAttribute('rel', 'stylesheet');
 document.head.appendChild(style); 
 
 var style = document.createElement('link');
-style.setAttribute('href', 'style.css');
+style.setAttribute('href', 'https://raw.githack.com/thatsenam/calculator-widget/main/style.css');
 style.setAttribute('rel', 'stylesheet');
 
 document.head.appendChild(style); 
@@ -29,7 +29,7 @@ function defer(method) {
     }
 }
 defer(async function () {
-        let template = await fetch("calculator.html")
+        let template = await fetch("https://raw.githack.com/thatsenam/calculator-widget/main/calculator.html")
         template = await template.text()
         var app = new Vue({
             el: '#calculator',
