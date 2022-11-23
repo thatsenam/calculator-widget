@@ -6,6 +6,19 @@ var vueScript = document.createElement('script');
 vueScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/vue@2.7.13');
 document.head.appendChild(vueScript);
 
+var style = document.createElement('link');
+style.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap-grid.min.css');
+style.setAttribute('rel', 'stylesheet');
+
+document.head.appendChild(style); 
+
+var style = document.createElement('link');
+style.setAttribute('href', 'style.css');
+style.setAttribute('rel', 'stylesheet');
+
+document.head.appendChild(style); 
+
+
 
 
 function defer(method) {
@@ -15,17 +28,12 @@ function defer(method) {
         setTimeout(function () { defer(method) }, 50);
     }
 }
-defer(function () {
-    $(document).ready(function () {
-
+defer(async function () {
+        let template = await fetch("calculator.html")
+        template = await template.text()
         var app = new Vue({
             el: '#calculator',
-            template: `
-            <div id="app-4" style="padding:20px;border:1px solid gray;width:500px">
-            <h2>{{ message }}</h2>
-            <input type="number" v-model="num1" placeholder="Number 1"/> + <input type="number" v-model="num2" placeholder="Number 2"/> = {{ sum }}
-            
-          </div>`,
+            template: template,
             data: {
                 message: 'Mortage Calculator Widgets!',
                 num1:3,
@@ -38,5 +46,4 @@ defer(function () {
             }
         })
 
-    })
 });
