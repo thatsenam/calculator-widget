@@ -1,32 +1,33 @@
 <div>
-  
+
   <div id="calculator-app" style="padding:20px;border:1px solid gray;">
-   
-    <h2 class="btn">{{ message }}</h2>
+
+    <h4 class="btn">{{ message }}</h4>
 
     <table style="text-align: end">
       <tr>
         <td>Loan Amount</td>
-        <td><input  style="text-align: end" type="text" name="" id=""></td>
+        <td><input v-model="loanAmount" style="text-align: end" type="number" step="any" name="" id=""></td>
       </tr>
       <tr>
         <td>Interest Rate (Annual)</td>
-        <td><input  style="text-align: end" type="text" name="" id=""></td>
+        <td><input v-model="interestRateAnnual" style="text-align: end" type="number" step="any" name="" id=""></td>
       </tr>
       <tr>
         <td>Loan period in years</td>
-        <td><input  style="text-align: end" type="text" name="" id=""></td>
+        <td><input v-model="loanPeriodInYears" style="text-align: end" type="number" step="any" name="" id=""></td>
       </tr>
       <tr>
         <td>Monthly Payment</td>
-        <td><input  style="text-align: end" type="text" name="" id=""></td>
+        <td><input readonly v-model="monthlyPayment" style="text-align: end" type="number" step="any" name="" id="">
+        </td>
       </tr>
       <tr>
         <td>Total Payments</td>
-        <td><input  style="text-align: end" type="text" name="" id=""></td>
+        <td><input readonly v-model="totalPayment" style="text-align: end" type="number" step="any" name="" id=""></td>
       </tr>
     </table>
-  
+
 
     <h2 class="table-header">2-1 BUY DOWN</h2>
 
@@ -41,24 +42,84 @@
 
       </tr>
       <tr>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneInterestRate1" style="text-align: center" type="number" step="any" name="" id=""></td>
+        <td><input v-model="twoOneMonthlyPayment1" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneMonthlyPaymentReduction1" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneOfPayment1" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneAnnualPaymentRed1"  style="text-align: center" type="text" name="" id=""></td>
 
       </tr>
       <tr>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
-        <td><input  style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneInterestRate2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneMonthlyPayment2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneMonthlyPaymentReduction2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneOfPayment2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="twoOneAnnualPaymentRed2" style="text-align: center" type="text" name="" id=""></td>
 
       </tr>
-     
+      <tr>
+        <td></td>
+        <td></td>
+
+        <td></td>
+
+        <td>Total Payment Reduction</td>
+        <td ><input v-model="twoOneTotalPaymentRed" style="text-align: center" type="text" name="" id=""></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+
+        <td></td>
+
+        <td>Buy Down Pricing</td>
+        <td ><input v-model="twoOneBuyDownPricing" style="text-align: center" type="text" name="" id=""></td>
+      </tr>
+
     </table>
-    
+
+
+    <h2 class="table-header">0-1 BUY DOWN</h2>
+
+    <table id="customers" style="text-align: center;">
+      <tr>
+        <th>Interest Rate</th>
+        <th>Monthly Payment</th>
+        <th>Monthly Payment Reduction</th>
+        <th># of Payments</th>
+        <th>Annual Payment Reduction</th>
+
+
+      </tr>
+   
+      <tr>
+        <td><input v-model="zeroOneInterestRate2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="zeroOneMonthlyPayment2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="zeroOneMonthlyPaymentReduction2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="zeroOneOfPayment2" style="text-align: center" type="text" name="" id=""></td>
+        <td><input v-model="zeroOneAnnualPaymentRed2" style="text-align: center" type="text" name="" id=""></td>
+
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+
+        <td></td>
+
+        <td>Total Payment Reduction</td>
+        <td ><input v-model="zeroOneTotalPaymentRed" style="text-align: center" type="text" name="" id=""></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+
+        <td></td>
+
+        <td>Buy Down Pricing</td>
+        <td ><input v-model="zeroOneBuyDownPricing" style="text-align: center" type="text" name="" id=""></td>
+      </tr>
+
+    </table>
 
   </div>
 
