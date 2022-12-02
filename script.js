@@ -69,7 +69,8 @@ defer(async function () {
             twoOneOfPayment1: 12,
             twoOneOfPayment2: 12,
             zeroOneOfPayment2: 12,
-            showModal:true,
+            showModal:false, 
+            
             periods:[10,15,20,30],
             activeRate:'2-1',
             rateList:['3-2-1','2-1','1-0']  
