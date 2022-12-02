@@ -12,6 +12,13 @@ style.setAttribute('rel', 'stylesheet');
 
 document.head.appendChild(style);
 
+
+var font = document.createElement('link');
+font.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+font.setAttribute('rel', 'stylesheet');
+document.head.appendChild(font);
+
+
 var style = document.createElement('link');
 style.setAttribute('href', 'https://raw.githack.com/thatsenam/calculator-widget/main/style.css');
 // style.setAttribute('href', 'style.css');
@@ -34,6 +41,22 @@ defer(async function () {
     let template = await fetch("https://raw.githack.com/thatsenam/calculator-widget/main/calculator.html")
     // let template = await fetch("calculator.html")
 
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+
+        // These options are needed to round to whole numbers if that's what you want.
+        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+        maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    });
+    const formatter2 = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+
+        // These options are needed to round to whole numbers if that's what you want.
+        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+        maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
+    });
     template = await template.text()
     var app = new Vue({
         el: '#calculator',
@@ -46,10 +69,27 @@ defer(async function () {
             twoOneOfPayment1: 12,
             twoOneOfPayment2: 12,
             zeroOneOfPayment2: 12,
-
-
+            
+            periods:[10,15,20,30],
+            activeRate:'2-1',
+            rateList:['3-2-1','2-1','1-0']  
         },
         computed: {
+
+            loanAmountFormatted: function () {
+                return formatter.format(this.loanAmount);
+            },
+            interestRateAnnualFormatted: function () {
+                return  this.interestRateAnnual +'%';
+            },
+
+            monthlyPaymentFormatted: function () {
+                return formatter.format(this.monthlyPayment);
+            },
+            totalPaymentFormatted: function () {
+                return this.totalPayment;
+            },
+
             monthlyPayment: function () {
                 return -this.PMT((parseFloat(this.interestRateAnnual) / 100) / 12, this.totalPayment, this.loanAmount)
             },
@@ -147,6 +187,20 @@ defer(async function () {
                     pmt /= (1 + ir);
 
                 return pmt.toFixed(2);
+            },
+            selectPeriod(period){
+                this.loanPeriodInYears = period;
+            },
+            onRateSelect(rate){
+                this.activeRate = rate;
+
+            },
+            format(amount){
+                return formatter2.format(amount);
+
+            },
+            formatDecimal(amount){
+                return amount.toFixed(2)
             }
         }
     })

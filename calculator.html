@@ -1,123 +1,203 @@
-<div>
+<div class="app-container">
 
-  <div id="calculator-app" style="padding:20px;">
+  <div class="app-content">
+      <div class="content">
+          <div class="row  justify-content-between">
+              <div class="col-4 ">
+                  <div class="inputContainer">
 
-    <h4 class="btn">{{ message }}</h4>
-
-    <table class="inputTable" style="text-align: end">
-      <tr>
-        <td class="green padding-20"> Loan Amount</td>
-        <td ><input class="yellow"   v-model="loanAmount" style="text-align: end" type="number" step="any" name="" id=""></td>
-      </tr>
-      <tr>
-        <td  class="green padding-20">Interest Rate (Annual)</td>
-        <td><input class="yellow"   v-model="interestRateAnnual" style="text-align: end" type="number" step="any" name="" id=""></td>
-      </tr>
-      <tr>
-        <td  class="green padding-20">Loan period in years</td>
-        <td><input  class="yellow"  v-model="loanPeriodInYears" style="text-align: end" type="number" step="any" name="" id=""></td>
-      </tr>
-      <tr>
-        <td  class="green padding-20">Monthly Payment</td>
-        <td ><input  readonly v-model="monthlyPayment" style="text-align: end" type="number" step="any" name="" id="">
-        </td>
-      </tr>
-      <tr>
-        <td  class="green padding-20">Total Payments</td>
-        <td><input  readonly v-model="totalPayment" style="text-align: end" type="number" step="any" name="" id=""></td>
-      </tr>
-    </table>
+                      <div class="loan-block mb-4">
+                          <span class="light-black">Loan Amount: </span>
+                          <h2 class="m-0 green" v-text="loanAmountFormatted">$300,000</h2>
+                          <div class="sliders mt-3">
+                              <input class="slider" min="0" max="3000000" v-model="loanAmount" type="range" step="any"
+                                  name="" id="">
+                          </div>
+                      </div>
 
 
-    <h2 class="table-header">2-1 BUY DOWN</h2>
+                      <div class="interest-block mt-8">
+                          <span class="light-black">Interest Rate (Annual):</span>
+                          <h2 class="m-0 green" v-text="interestRateAnnualFormatted"></h2>
+                          <div class="sliders mt-3">
+                              <input class="slider" min="0" max="20" v-model="interestRateAnnual" type="range"
+                                  step="0.1" name="" id="">
+                          </div>
+                      </div>
 
-    <table id="customers" style="text-align: center;">
-      <tr>
-        <th>Interest Rate</th>
-        <th>Monthly Payment</th>
-        <th>Monthly Payment Reduction</th>
-        <th># of Payments</th>
-        <th>Annual Payment Reduction</th>
+                      <div class="interest-block mt-8">
+                          <span class="light-black">Loan Period (In Years):</span>
+                          <div class="periods">
+                              <div @click="selectPeriod(period)" class="period" v-for="period in periods"
+                                  :class="period == loanPeriodInYears?'active':''">
+                                  <div> {{ period }}</div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="interest-block mt-8">
+                          <div class="row">
+                              <div class="col">
+                                  <span class="light-black">Monthly Payment:</span>
+                              </div>
+                              <div class="col-4">
+                                  <span class="" v-text="monthlyPaymentFormatted"></span>
+                              </div>
+                          </div>
+                          <div class="row mt-2">
+                              <div class="col">
+                                  <span class="light-black">Total Payments:</span>
+                              </div>
+                              <div class="col-4">
+                                  <span class="" v-text="totalPaymentFormatted"></span>
+                              </div>
+                          </div>
 
+                      </div>
 
-      </tr>
-      <tr>
-        <td><input readonly v-model="twoOneInterestRate1" style="text-align: center" type="text" step="any" name="" id=""></td>
-        <td><input readonly v-model="twoOneMonthlyPayment1" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="twoOneMonthlyPaymentReduction1" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="twoOneOfPayment1" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="twoOneAnnualPaymentRed1"  style="text-align: center" type="text" name="" id=""></td>
-
-      </tr>
-      <tr>
-        <td><input readonly v-model="twoOneInterestRate2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="twoOneMonthlyPayment2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="twoOneMonthlyPaymentReduction2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="twoOneOfPayment2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="twoOneAnnualPaymentRed2" style="text-align: center" type="text" name="" id=""></td>
-
-      </tr>
-      <tr class="green">
-        <td></td>
-        <td></td>
-
-
-        <td style="text-align: end;margin-right: 20px;" colspan="2">Total Payment Reduction</td>
-        <td ><input class="green" readonly v-model="twoOneTotalPaymentRed" style="text-align: center" type="text" name="" id=""></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-
-
-        <td colspan="2" style="text-align: end;margin-right: 20px;">Buy Down Pricing</td>
-        <td  class="yellow"  ><input class="yellow" readonly v-model="twoOneBuyDownPricing" style="text-align: center" type="text" name="" id=""></td>
-      </tr>
-
-    </table>
+                  </div>
 
 
-    <h2 class="table-header">1-0 BUY DOWN</h2>
-
-    <table id="customers" style="text-align: center;">
-      <tr>
-        <th>Interest Rate</th>
-        <th>Monthly Payment</th>
-        <th>Monthly Payment Reduction</th>
-        <th># of Payments</th>
-        <th>Annual Payment Reduction</th>
 
 
-      </tr>
-   
-      <tr>
-        <td><input readonly v-model="zeroOneInterestRate2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="zeroOneMonthlyPayment2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="zeroOneMonthlyPaymentReduction2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="zeroOneOfPayment2" style="text-align: center" type="text" name="" id=""></td>
-        <td><input readonly v-model="zeroOneAnnualPaymentRed2" style="text-align: center" type="text" name="" id=""></td>
 
-      </tr>
-      <tr  class="green" >
-        <td></td>
-        <td></td>
+              </div>
+              <div class="col-8 right-section">
+                  <div class="d-flex flex-col justify-content-md-around align-items-center"
+                      style="flex-direction:column ;height: 590px">
+                      <div class="top-buttons ">
+                          <div class="d-flex align-items-center justify-content-center">
+                              <div @click="onRateSelect(rate)" class="circle-button" v-for="rate in rateList"
+                                  :class="rate == activeRate?'circle-active':''">
+                                  <p>
+                                      {{ rate }} <br>
+                                      Buy Down
+                                      </span>
 
+                              </div>
 
-        <td style="text-align: end;margin-right: 20px;" colspan="2">Total Payment Reduction</td>
-        <td ><input  class="green"  readonly v-model="zeroOneTotalPaymentRed" style="text-align: center" type="text" name="" id=""></td>
-      </tr>
-      <tr >
-        <td></td>
-        <td></td>
+                          </div>
 
 
-        <td style="text-align: end;margin-right: 20px;" colspan="2">Buy Down Pricing</td>
-        <td  class="yellow"  ><input  class="yellow"  readonly v-model="zeroOneBuyDownPricing" style="text-align: center" type="text" name="" id=""></td>
-      </tr>
 
-    </table>
+                      </div>
+                      <div class="rate-results">
+
+                          <div v-if="activeRate=='3-2-1'">
+                              <h2>Coming Soon...</h2>
+                          </div>
+
+                          <div v-if="activeRate=='2-1'">
+                              <table id="customers" style="text-align: center;">
+                                  <tr>
+                                      <th>Interest <br> Rate</th>
+                                      <th>Monthly Payment</th>
+                                      <th>Monthly Payment Reduction</th>
+                                      <th># of <br> Payments</th>
+                                      <th>Annual Payment Reduction</th>
+
+
+                                  </tr>
+                                  <tbody class="tbody">
+                                      <tr>
+                                          <td class="top-left-border">
+                                              <span>{{ formatDecimal(twoOneInterestRate1) }}</span>
+                                          </td>
+                                          <td><span> {{ format(twoOneMonthlyPayment1) }}</span> </td>
+                                          <td> <span>{{ format(twoOneMonthlyPaymentReduction1) }}</span></td>
+                                          <td> <span>{{ twoOneOfPayment1}}</span> </td>
+                                          <td class="top-right-border"> <span>{{
+                                                  format(twoOneAnnualPaymentRed1)}}</span></td>
+
+                                      </tr>
+
+
+                                      <tr>
+                                          <td class="bottom-left-border">
+                                              <span>{{ formatDecimal(twoOneInterestRate2) }}</span>
+                                          </td>
+                                          <td><span> {{ format(twoOneMonthlyPayment2) }}</span> </td>
+                                          <td> <span>{{ format(twoOneMonthlyPaymentReduction2) }}</span></td>
+                                          <td> <span>{{ twoOneOfPayment2 }}</span> </td>
+                                          <td class="bottom-right-border"> <span>{{
+                                                  format(twoOneAnnualPaymentRed2)}}</span></td>
+
+                                      </tr>
+                                  </tbody>
+
+
+
+                              </table>
+                              <br>
+                              <div class="footer">
+                                  <div class="bg-green top-left-border top-right-border">
+                                      <span>Total Payment Reduction: {{ format(twoOneTotalPaymentRed )}}</span>
+                                  </div>
+                                  <div class="bg-yellow bottom-left-border bottom-right-border">
+                                      <span>Buy Down Pricing: {{ format(twoOneBuyDownPricing )}}</span>
+                                  </div>
+
+                              </div>
+                          </div>
+                          <div v-if="activeRate=='1-0'">
+                              <table id="customers" style="text-align: center;">
+                                  <tr>
+                                      <th>Interest <br> Rate</th>
+                                      <th>Monthly Payment</th>
+                                      <th>Monthly Payment Reduction</th>
+                                      <th># of <br> Payments</th>
+                                      <th>Annual Payment Reduction</th>
+
+
+                                  </tr>
+                                  <tbody class="tbody">
+                                      <tr>
+                                          <td class="top-left-border">
+                                              <span>{{ formatDecimal(zeroOneInterestRate2) }}</span>
+                                          </td>
+                                          <td><span> {{ format(zeroOneMonthlyPayment2) }}</span> </td>
+                                          <td> <span>{{ format(zeroOneMonthlyPaymentReduction2) }}</span></td>
+                                          <td> <span>{{ zeroOneOfPayment2}}</span> </td>
+                                          <td class="top-right-border"> <span>{{
+                                                  format(zeroOneAnnualPaymentRed2)}}</span></td>
+
+                                      </tr>
+
+                                  </tbody>
+
+
+
+                              </table>
+                              <br>
+                              <div class="footer">
+                                  <div class="bg-green top-left-border top-right-border">
+                                      <span>Total Payment Reduction: {{ format(zeroOneTotalPaymentRed )}}</span>
+                                  </div>
+                                  <div class="bg-yellow bottom-left-border bottom-right-border">
+                                      <span>Buy Down Pricing: {{ format(zeroOneBuyDownPricing )}}</span>
+                                  </div>
+
+                              </div>
+                          </div>
+                         
+
+                      </div>
+
+                  </div>
+
+
+
+              </div>
+
+          </div>
+
+      </div>
+
+      <div class="roundbox">
+      </div>
+
 
   </div>
+
 
 
 
