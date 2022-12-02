@@ -69,7 +69,7 @@ defer(async function () {
             twoOneOfPayment1: 12,
             twoOneOfPayment2: 12,
             zeroOneOfPayment2: 12,
-            
+            showModal:true,
             periods:[10,15,20,30],
             activeRate:'2-1',
             rateList:['3-2-1','2-1','1-0']  
@@ -201,6 +201,15 @@ defer(async function () {
             },
             formatDecimal(amount){
                 return amount.toFixed(2)
+            },
+            onModalOpen(){
+                this.showModal = true;
+            },
+            onModalClose(){
+                this.showModal = false;
+            },
+            test(){
+                console.log('test called')
             }
         }
     })

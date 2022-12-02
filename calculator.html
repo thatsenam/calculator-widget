@@ -90,7 +90,7 @@
                               <table id="customers" style="text-align: center;">
                                   <tr>
                                       <th>Interest <br> Rate</th>
-                                      <th>Monthly Payment</th>
+                                      <th>Monthly <br> Payment</th>
                                       <th>Monthly Payment Reduction</th>
                                       <th># of <br> Payments</th>
                                       <th>Annual Payment Reduction</th>
@@ -191,6 +191,10 @@
           </div>
 
       </div>
+      <div class="footer-links mt-8">
+
+        <span @click="onModalOpen" class="save-button light-black"> click here to start saving!</button>
+      </div>
 
       <div class="roundbox">
       </div>
@@ -198,6 +202,55 @@
 
   </div>
 
+
+
+
+
+
+  <div class="modal-overlay" v-if="showModal" @click="onModalClose">
+
+
+    <div class="modal-container">
+      <div class="modal" @click.stop>
+
+
+        <div class="row  align-items-center">
+          <div class="col " style="text-align:right;"> 
+            <p>Your first name </p>
+           
+          </div>
+          <div class="col"> : <input type="text"> 
+            
+          </div>
+  
+        
+  
+        </div>
+        <div class="row  align-items-center">
+          <div class="col" style="text-align:right;">
+            <p>Your phone or email</p>
+          </div>
+          <div class="col"> : <input type="text"></div>
+  
+        </div>
+        <div class="d-flex  mt-4 justify-content-center align-items-center">
+          <div class="col"></div>
+          <div class="col ">     
+             <span class="modal-button">Submit</span>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-round">
+        
+      </div>
+    </div>
+   
+    <div class="close">
+      <img class="close-img" src="~/assets/close-icon.svg" alt="" />
+    </div>
+  </div>
+ 
 
 
 
